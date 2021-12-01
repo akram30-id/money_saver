@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_saver/ui/pemasukan/pemasukan.dart';
+import 'package:money_saver/ui/pengeluaran/pengeluaran.dart';
 import 'package:money_saver/ui/user_flow/login.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -39,10 +41,9 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                           context,
                           PageTransition(
-                            child: Login(),
-                            type: PageTransitionType.leftToRight,
-                            duration: Duration(milliseconds: 1000)
-                          ),
+                              child: Login(),
+                              type: PageTransitionType.leftToRight,
+                              duration: Duration(milliseconds: 1000)),
                         );
                       },
                       child: Container(
@@ -429,32 +430,58 @@ class _HomeState extends State<Home> {
                             offset: Offset(0, 5)),
                       ]),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
-                        Icons.lock_outline,
+                        Icons.money,
                         size: 100,
                         color: Colors.orange[900],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Disini kamu bisa nyatet\n jumlah pemasukan, \nsumbernya, dan masukin\n ke catatan tabungan loh.\n Yuk login dulu',
+                            'Total Pemasukan',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Lato'),
+                          ),
+                          Text(
+                            'Rp. 12,000,000',
+                            style: TextStyle(
+                                color: Colors.green[400],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                                fontFamily: 'Lato'),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 16,
                           ),
-                          Container(
-                            width: 85,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                color: Colors.orange[900],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Center(
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.white),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: Pemasukan(),
+                                  type: PageTransitionType.rightToLeft,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                  color: Colors.orange[900],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: Center(
+                                child: Text(
+                                  'Detail',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                           )
@@ -494,32 +521,58 @@ class _HomeState extends State<Home> {
                             offset: Offset(0, 5)),
                       ]),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
-                        Icons.lock_outline,
+                        Icons.money_off,
                         size: 100,
                         color: Colors.orange[900],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Disini kamu bisa nyatet\n jumlah pengeluaran dan\n akan otomatis ngurangin\n jumlah pemasukan kamu.\n Yuk login!',
+                            'Total Pengeluaran',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Lato'),
+                          ),
+                          Text(
+                            'Rp. 2,000,000',
+                            style: TextStyle(
+                                color: Colors.red[400],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                                fontFamily: 'Lato'),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 16,
                           ),
-                          Container(
-                            width: 85,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                color: Colors.orange[900],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Center(
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.white),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: Pengeluaran(),
+                                    type: PageTransitionType.rightToLeft,
+                                    ),
+                              );
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                  color: Colors.orange[900],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: Center(
+                                child: Text(
+                                  'Detail',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                           )

@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:money_saver/main.dart';
-import 'package:money_saver/ui/user_flow/otp.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:money_saver/ui/custom/currency.dart';
+import 'package:money_saver/ui/custom/date_pick.dart';
+import 'package:money_saver/ui/pengeluaran/pengeluaran.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CompleteProfile extends StatefulWidget {
+class TambahPengeluaran extends StatefulWidget {
   @override
-  _CompleteProfileState createState() => _CompleteProfileState();
+  _TambahPengeluaranState createState() => _TambahPengeluaranState();
 }
 
-class _CompleteProfileState extends State<CompleteProfile> {
-  List _listPekerjaan = [
-    'Karyawan Swasta',
-    'Pengusaha',
-    'PNS/ASN',
-    'TNI/POLRI',
-    'Siswa',
-    'Mahasiswa',
-    'Lainnya'
-  ];
-
-  String pekerjaan;
+class _TambahPengeluaranState extends State<TambahPengeluaran> {
+  String pilihTanggal, labelText;
+  DateTime tgl = new DateTime.now();
+  final TextStyle valueStyle = TextStyle(fontSize: 16.0);
+  Future<Null> _selectedDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: tgl,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != tgl) {
+      setState(() {
+        tgl = picked;
+        pilihTanggal = new DateFormat.yMd().format(tgl);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 Align(
                   alignment: Alignment(-0.8, 0),
                   child: Text(
-                    'Data Diri',
+                    'Tambahkan Pengeluaran',
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -56,17 +65,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 ),
                 SizedBox(
                   height: 10,
-                ),
-                Align(
-                  alignment: Alignment(-0.7, 0),
-                  child: Text(
-                    'Lengkapi data diri dengan lengkap ya!',
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
-                        fontStyle: FontStyle.italic),
-                  ),
                 ),
               ],
             ),
@@ -83,7 +81,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nama Lengkap'),
+                      Text('Jumlah Pengeluaran'),
                       SizedBox(
                         height: 10,
                       ),
@@ -92,14 +90,22 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            // ignore: deprecated_member_use
+                            WhitelistingTextInputFormatter.digitsOnly,
+                            Currency()
+                          ],
                           cursorColor: Colors.orange,
                           decoration: InputDecoration(
+                            hintText: 'Contoh : 250,000',
                             fillColor: Colors.white,
                             focusColor: Colors.orange,
                             prefixIcon: Icon(
-                              Icons.account_circle_rounded,
+                              Icons.attach_money_outlined,
                               color: Colors.orange,
                             ),
+                            prefixText: 'Rp. ',
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
@@ -126,50 +132,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nomor Telepon'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          cursorColor: Colors.orange,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            focusColor: Colors.orange,
-                            prefixIcon: Icon(
-                              Icons.phone_android_outlined,
-                              color: Colors.orange,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.orange,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.orange[900],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Pekerjaan'),
+                      Text('Tanggal Pengeluaran'),
                       SizedBox(
                         height: 10,
                       ),
@@ -184,7 +147,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               fillColor: Colors.white,
                               focusColor: Colors.orange,
                               prefixIcon: Icon(
-                                Icons.badge,
+                                Icons.date_range,
                                 color: Colors.orange,
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -201,23 +164,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               ),
                             ),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                hint: Text('Pilih Pekerjaan'),
-                                items: _listPekerjaan.map((value) {
-                                  return DropdownMenuItem(
-                                    child: Text(value),
-                                    value: value,
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    pekerjaan = value;
-                                    print(pekerjaan);
-                                  });
-                                },
-                                value: pekerjaan,
-                              ),
-                            ),
+                                child: DateDropdown(
+                              labelText: labelText,
+                              valueText: new DateFormat.yMd().format(tgl),
+                              valueStyle: valueStyle,
+                              onPressed: () {
+                                _selectedDate(context);
+                              },
+                            )),
                           );
                         }),
                       ),
@@ -227,12 +181,56 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 SizedBox(
                   height: 32,
                 ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Kegunaan'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextFormField(
+                          cursorColor: Colors.orange,
+                          decoration: InputDecoration(
+                            hintText: 'Contoh : Beli Sembako',
+                            fillColor: Colors.white,
+                            focusColor: Colors.orange,
+                            prefixIcon: Icon(
+                              Icons.shopping_bag_rounded,
+                              color: Colors.orange,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.orange[900],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 48,
+                ),
                 InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
                       PageTransition(
-                        child: OTP(),
+                        child: Pengeluaran(),
                         type: PageTransitionType.rightToLeft,
                       ),
                     );
@@ -245,10 +243,11 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: Text(
-                        'Next',
+                        'Tambahkan',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
+                            fontSize: 18,
                             fontFamily: 'Lato'),
                       ),
                     ),

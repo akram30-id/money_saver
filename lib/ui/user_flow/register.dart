@@ -196,11 +196,11 @@ class _RegisterState extends State<Register> {
                       );
                     },
                     child: Container(
-                      width: 250,
-                      height: 35,
+                      width: 300,
+                      height: 50,
                       decoration: BoxDecoration(
                           color: Colors.orange[900],
-                          borderRadius: BorderRadius.circular(25)),
+                          borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: Text(
                           'Register',
@@ -217,14 +217,7 @@ class _RegisterState extends State<Register> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: Login(),
-                          type: PageTransitionType.topToBottom,
-                          duration: Duration(milliseconds: 1000),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Text(
                       'Sudah punya akun',

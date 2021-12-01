@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_saver/ui/user_flow/ganti_password.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -149,19 +151,31 @@ class _AccountState extends State<Account> {
               SizedBox(
                 height: 16,
               ),
-              Container(
-                width: 250,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(25)),
-                child: Center(
-                  child: Text(
-                    'Ganti Password',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Lato'),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: GantiPassword(),
+                      type: PageTransitionType.topToBottom,
+                      duration: Duration(milliseconds: 800),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 250,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Center(
+                    child: Text(
+                      'Ganti Password',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Lato'),
+                    ),
                   ),
                 ),
               ),

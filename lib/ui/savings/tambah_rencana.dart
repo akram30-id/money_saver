@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:money_saver/main.dart';
-import 'package:money_saver/ui/user_flow/otp.dart';
-import 'package:page_transition/page_transition.dart';
 
-class CompleteProfile extends StatefulWidget {
+class TambahRencana extends StatefulWidget {
   @override
-  _CompleteProfileState createState() => _CompleteProfileState();
+  _TambahRencanaState createState() => _TambahRencanaState();
 }
 
-class _CompleteProfileState extends State<CompleteProfile> {
-  List _listPekerjaan = [
-    'Karyawan Swasta',
-    'Pengusaha',
-    'PNS/ASN',
-    'TNI/POLRI',
-    'Siswa',
-    'Mahasiswa',
-    'Lainnya'
+class _TambahRencanaState extends State<TambahRencana> {
+  List _frekuensi = [
+    'Setiap Hari',
+    'Setiap Minggu',
+    'Setiap Bulan',
+    'Setiap Tahun',
   ];
 
-  String pekerjaan;
+  String frekuensi;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +37,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
           children: [
             Column(
               children: [
-                Align(
-                  alignment: Alignment(-0.8, 0),
+                Container(
+                  margin: EdgeInsets.only(left: 16),
                   child: Text(
-                    'Data Diri',
+                    'Tambah Rencana Menabung',
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -54,36 +48,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         fontFamily: 'Lato'),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment(-0.7, 0),
-                  child: Text(
-                    'Lengkapi data diri dengan lengkap ya!',
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
-                        fontStyle: FontStyle.italic),
-                  ),
-                ),
               ],
             ),
             SizedBox(
-              height: 16,
+              height: 32,
             ),
             Column(
               children: [
-                SizedBox(
-                  height: 32,
-                ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nama Lengkap'),
+                      Text('Tujuan Rencana'),
                       SizedBox(
                         height: 10,
                       ),
@@ -94,10 +71,11 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         child: TextFormField(
                           cursorColor: Colors.orange,
                           decoration: InputDecoration(
+                            hintText: 'Contoh : Pergi Umroh',
                             fillColor: Colors.white,
                             focusColor: Colors.orange,
                             prefixIcon: Icon(
-                              Icons.account_circle_rounded,
+                              Icons.turned_in_outlined,
                               color: Colors.orange,
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -126,50 +104,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nomor Telepon'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          cursorColor: Colors.orange,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            focusColor: Colors.orange,
-                            prefixIcon: Icon(
-                              Icons.phone_android_outlined,
-                              color: Colors.orange,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.orange,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.orange[900],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Pekerjaan'),
+                      Text('Frekuensi'),
                       SizedBox(
                         height: 10,
                       ),
@@ -184,7 +119,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               fillColor: Colors.white,
                               focusColor: Colors.orange,
                               prefixIcon: Icon(
-                                Icons.badge,
+                                Icons.date_range_rounded,
                                 color: Colors.orange,
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -202,8 +137,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
-                                hint: Text('Pilih Pekerjaan'),
-                                items: _listPekerjaan.map((value) {
+                                hint: Text('Menabung Setiap...'),
+                                items: _frekuensi.map((value) {
                                   return DropdownMenuItem(
                                     child: Text(value),
                                     value: value,
@@ -211,11 +146,11 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 }).toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    pekerjaan = value;
-                                    print(pekerjaan);
+                                    frekuensi = value;
+                                    print(frekuensi);
                                   });
                                 },
-                                value: pekerjaan,
+                                value: frekuensi,
                               ),
                             ),
                           );
@@ -227,25 +162,64 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 SizedBox(
                   height: 32,
                 ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Notes'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextFormField(
+                          cursorColor: Colors.orange,
+                          decoration: InputDecoration(
+                            hintText:
+                                'Harus konsisten pokoknya. Insyaallah jadi!!!',
+                            fillColor: Colors.white,
+                            focusColor: Colors.orange,
+                            prefixIcon: Icon(
+                              Icons.notes_outlined,
+                              color: Colors.orange,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.orange[900],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 32,
+                ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        child: OTP(),
-                        type: PageTransitionType.rightToLeft,
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   child: Container(
-                    width: 300,
+                    width: 285,
                     height: 50,
                     decoration: BoxDecoration(
                         color: Colors.orange[900],
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: Text(
-                        'Next',
+                        'Submit',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,

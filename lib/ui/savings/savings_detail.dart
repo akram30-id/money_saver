@@ -182,6 +182,12 @@ class _SavingsDetailState extends State<SavingsDetail> {
                                   fontSize: 18,
                                   fontFamily: 'Lato'),
                             ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {}),
                             Text(
                               'Rp. 1,200,000',
                               style: TextStyle(
@@ -219,6 +225,12 @@ class _SavingsDetailState extends State<SavingsDetail> {
                                   fontSize: 18,
                                   fontFamily: 'Lato'),
                             ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {}),
                             Text(
                               'Rp. 1,200,000',
                               style: TextStyle(
@@ -256,6 +268,12 @@ class _SavingsDetailState extends State<SavingsDetail> {
                                   fontSize: 18,
                                   fontFamily: 'Lato'),
                             ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {}),
                             Text(
                               'Rp. 1,200,000',
                               style: TextStyle(
@@ -281,10 +299,10 @@ class _SavingsDetailState extends State<SavingsDetail> {
                       height: 100,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 150,
+                          width: 250,
                           height: 50,
                           decoration: BoxDecoration(
                               color: Colors.red,
@@ -297,32 +315,9 @@ class _SavingsDetailState extends State<SavingsDetail> {
                               ]),
                           child: Center(
                             child: Text(
-                              'Delete',
+                              'Delete Plan',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Lato',
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 5))
-                              ]),
-                          child: Center(
-                            child: Text(
-                              'Edit Plan',
-                              style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Lato',
                               ),

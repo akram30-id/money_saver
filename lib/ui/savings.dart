@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money_saver/ui/user_flow/savings_detail.dart';
+import 'package:money_saver/ui/savings/nabung.dart';
+import 'package:money_saver/ui/savings/tambah_rencana.dart';
+import 'savings/savings_detail.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Savings extends StatefulWidget {
@@ -43,6 +45,76 @@ class _SavingsState extends State<Savings> {
                           fontWeight: FontWeight.w700,
                           fontSize: 15,
                           fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: Nabung(),
+                          type: PageTransitionType.topToBottom,
+                          duration: Duration(
+                            milliseconds: 800,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10),
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Nabung',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: TambahRencana(),
+                          type: PageTransitionType.topToBottom,
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10),
+                      width: 150,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.orange[900],
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Tambahin Rencana',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
