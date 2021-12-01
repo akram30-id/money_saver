@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2021 at 11:15 AM
+-- Generation Time: Dec 01, 2021 at 01:46 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -24,39 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `member_token`
---
-
-CREATE TABLE `member_token` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `token` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `member_token`
---
-
-INSERT INTO `member_token` (`id`, `id_user`, `token`) VALUES
-(1, 1, '123456789'),
-(2, 1, '12345'),
-(3, 2, '524A8D3M'),
-(4, 2, 'M5B01N1G'),
-(5, 2, 'ZRF3IMF6'),
-(6, 2, 'VW1OWJMF'),
-(7, 2, 'F6E2I5EQ'),
-(8, 2, '222U5UT8');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pemasukan`
 --
 
 CREATE TABLE `pemasukan` (
   `id` int(11) NOT NULL,
-  `id_sumber` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `sumber` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -65,8 +39,8 @@ CREATE TABLE `pemasukan` (
 -- Dumping data for table `pemasukan`
 --
 
-INSERT INTO `pemasukan` (`id`, `id_sumber`, `id_user`, `tanggal`, `jumlah`) VALUES
-(2, 2, 2, '2021-11-16', 150000);
+INSERT INTO `pemasukan` (`id`, `id_user`, `sumber`, `tanggal`, `jumlah`) VALUES
+(3, 2, 'Bisnis', '2021-12-02', 1000000);
 
 -- --------------------------------------------------------
 
@@ -104,36 +78,11 @@ CREATE TABLE `plan` (
 
 CREATE TABLE `saver` (
   `id` int(11) NOT NULL,
-  `id_pemasukan` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_plan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sumber`
---
-
-CREATE TABLE `sumber` (
-  `id` int(11) NOT NULL,
-  `sumber_pendapatan` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sumber`
---
-
-INSERT INTO `sumber` (`id`, `sumber_pendapatan`) VALUES
-(1, 'Bisnis/Dagang/Jualan'),
-(2, 'Gaji'),
-(3, 'Orang Tua'),
-(4, 'Dividen Yield'),
-(5, 'Profit Trade'),
-(6, 'Lotere/Undian'),
-(7, 'Lainnya');
 
 -- --------------------------------------------------------
 
@@ -147,35 +96,27 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
-  `telepon` varchar(255) NOT NULL
+  `telepon` varchar(255) NOT NULL,
+  `PIN` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `username`, `password`, `pekerjaan`, `telepon`) VALUES
-(1, 'Julia', 'Star', 'Star', 'Dokter', '081234561888'),
-(2, 'Ananda Akram', 'akram3011', '$2y$10$U5F46BrVh2n3cygI0iVs9.L0wwOjo6dkG4gOE9pnk3HsC5vjzFo06', 'Mahasiswa', '082222222');
+INSERT INTO `user` (`id`, `nama`, `username`, `password`, `pekerjaan`, `telepon`, `PIN`) VALUES
+(1, 'Julia', 'Star', 'Star', 'Dokter', '081234561888', 123456),
+(2, 'Ananda Akram', 'akram3011', '$2y$10$U5F46BrVh2n3cygI0iVs9.L0wwOjo6dkG4gOE9pnk3HsC5vjzFo06', 'Mahasiswa', '082222222', 789012);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `member_token`
---
-ALTER TABLE `member_token`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
-
---
 -- Indexes for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_sumber` (`id_sumber`),
-  ADD KEY `id_sumber_2` (`id_sumber`),
   ADD KEY `id_user` (`id_user`);
 
 --
@@ -197,15 +138,8 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `saver`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_pemasukan` (`id_pemasukan`),
   ADD KEY `id_plan` (`id_plan`),
   ADD KEY `id_user` (`id_user`);
-
---
--- Indexes for table `sumber`
---
-ALTER TABLE `sumber`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -218,16 +152,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `member_token`
---
-ALTER TABLE `member_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
 -- AUTO_INCREMENT for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
@@ -248,12 +176,6 @@ ALTER TABLE `saver`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `sumber`
---
-ALTER TABLE `sumber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -264,16 +186,9 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `member_token`
---
-ALTER TABLE `member_token`
-  ADD CONSTRAINT `relation` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  ADD CONSTRAINT `relation2` FOREIGN KEY (`id_sumber`) REFERENCES `sumber` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `relation6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
@@ -293,7 +208,6 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `saver`
   ADD CONSTRAINT `relation10` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `relation4` FOREIGN KEY (`id_pemasukan`) REFERENCES `pemasukan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `relation5` FOREIGN KEY (`id_plan`) REFERENCES `plan` (`id`);
 COMMIT;
 
